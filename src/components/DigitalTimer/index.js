@@ -44,7 +44,6 @@ class DigitalTimer extends Component {
         const newTimeInterval = this.getTimeInterval(newMinutes, newSeconds)
         this.setState({
           currentTimerValue: newTimeInterval,
-          isTimerInProgress: true,
         })
       }
     }, 1000)
@@ -60,15 +59,13 @@ class DigitalTimer extends Component {
     if (isTimerInProgress) {
       this.stopTimer()
     } else {
-      this.startTimer()
+      this.setState({isTimerInProgress: true}, this.startTimer())
     }
   }
 
   resetTime = () => {
-    this.setState(
-      {currentTimerValue: '25:00', initialTimerValue: 25},
-      this.stopTimer(),
-    )
+    this.setState({currentTimerValue: '25:00'})
+    this.stopTimer()
   }
 
   onClickIncrease = () => {
